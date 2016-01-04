@@ -1,2 +1,16 @@
+#cloud-config
 
-https://discovery.etcd.io/c08488d8aa6856c220fe513aa9e8ab79
+hostname: coreos0
+ssh_authorized_keys:
+  - ssh-rsa AAAA...
+coreos:
+  units:
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
+  etcd2:
+    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
+    # specify the initial size of your cluster with ?size=X
+    discovery: https://discovery.etcd.io/c08488d8aa6856c220fe513aa9e8ab79
+
